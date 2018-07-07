@@ -2,7 +2,10 @@
 
 This repository covers three main subprojects regarding Reddit communities, their similarity and interactions.
 This is part of a project for a class of Web Information Retrieval and the main inspiration for these works is
-this paper [link to paper] from Leskovec et al. from Stanford University.
+[this paper](https://arxiv.org/abs/1803.03697) from Leskovec et al. from Stanford University.
+
+The slides
+of the presentation can be found [here](https://docs.google.com/presentation/d/1xk37hY9K1L0AdC3oJ9LoaLvkuYvvzfOqTSsPu91eQHw/edit?usp=sharing)
 
 ## Get Started
 
