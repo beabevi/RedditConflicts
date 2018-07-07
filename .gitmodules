@@ -1,0 +1,3 @@
+[submodule "reddit_sentiments"]
+	path = reddit_sentiments
+	url = https://github.com/spallas/reddit_sentiments.git
