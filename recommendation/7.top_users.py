@@ -1,20 +1,21 @@
 from collections import Counter
+import pandas as pd
 
-FILE_IN = 'sample/test.csv'
+FILE_IN = 'sample/RC_2017-12.1over4.sample'
+FILE_OUT = 'user_prefs/subs_users.1over4.body'
 
+def top_subreddits():
+  data = pd.read_csv('top_5000_subreddits.index', header=None)
+  return data.values[:,0].tolist()
 
-subreddits = []
+subreddits = top_subreddits()
+
+sub_index = {}
+for i, sub in enumerate(subreddits):
+  sub_index[sub] = i
 
 users_subs = {}
 
-
-def get_sub_idx(sub):
-    i = -1
-    try:
-        i = subreddits.index(sub)
-    except ValueError:
-        pass
-    return i
 
 with open(FILE_IN) as f:
     for line in f:
@@ -25,11 +26,10 @@ with open(FILE_IN) as f:
         if author == '[deleted]' or author.lower().endswith('bot'):
             continue
 
-        sub_idx = get_sub_idx(sub)
-        if  sub_idx == -1:
-            subreddits.append(sub)
-            sub_idx = len(subreddits) - 1
-        
+        sub_idx = sub_index.get(sub, -1)
+        if sub_idx == -1:
+            continue
+
         user_subs = users_subs.get(author, [])
 
         if user_subs == []:
@@ -37,22 +37,16 @@ with open(FILE_IN) as f:
         
         users_subs[author].append(sub_idx)
 
-out_head = open('user_prefs/subs_users.head', 'w')
-out_head.write('\n'.join(subreddits))
-out_head.close()
 
-out_body = open('user_prefs/subs_users.body', 'w')
+out_body = open(FILE_OUT, 'w')
 
 for user in users_subs:
     c = Counter(users_subs[user])
 
-    if len(c.keys()) < 5: continue
-
-    out_body.write(user)
-    out_body.write(',')
+    if len(c.keys()) < 6: continue
 
     for k in c:
-        out_body.write(subreddits[k] + ":" + str(c.get(k)) + " ")
+        out_body.write(str(k) + ":" + str(c.get(k)) + " ")
     out_body.write('\n')
 
 out_body.close()

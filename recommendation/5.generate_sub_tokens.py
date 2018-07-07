@@ -7,16 +7,16 @@ from nltk.stem import PorterStemmer
 ps = PorterStemmer()
 sw = set(stopwords.words('english'))
 
-remove_stops = lambda l:  [w for w in l if w not in sw]
+remove_stops = lambda l:  [w for w in l if w not in sw and not len(w) > 100]
 string_to_tokens = lambda s: re.findall(r'\w+', s.strip(',. ?1').lower())
 stem_list = lambda l: [ps.stem(e) for e in l]
 
 remove_dups = lambda l: list(set(l))
 
-num_lines = 27158
+num_lines = 5143
 bar = pyprind.ProgBar(num_lines)
 
-FILE_IN = 'each_sub_comm.csv'
+FILE_IN = 'sub_words.1over4.csv'
 FILE_OUT = 'sub_tokens.csv'
 
 out = open(FILE_OUT, 'w')

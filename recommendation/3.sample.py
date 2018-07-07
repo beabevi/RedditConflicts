@@ -4,18 +4,18 @@ import json
 
 def hit():
   """
-    Returns true 1/4 times on average
+    Returns true 1/8 times on average
   """
 
-  if randint(1, 4) == 4:
+  if randint(1, 8) == 8:
     return True
   else:
     return False
 
 
 data = lzma.open('data/RC_2017-12.xz')
-out = open('sample/RC_2017-12.1over4.sample', 'w')
-out_head = open('sample/RC_2017-12.1over4.head', 'w')
+out = open('sample/RC_2017-12.1over8.sample', 'w')
+out_head = open('sample/RC_2017-12.1over8.head', 'w')
 
 attrs = ['subreddit', 'author', 'id',
 'author_flair_css_class',

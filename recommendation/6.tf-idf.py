@@ -1,56 +1,52 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-import bottleneck as bn
+import scipy as scp
+import numpy as np
 import pandas as pd
+import pyprind
 
 FILE_IN = "sub_tokens.csv"
 
 tfidf = TfidfVectorizer(max_features=20000, sublinear_tf=True)
 
 
-def top_n_subreddits(n):
-  data = pd.read_csv('data_stats/RC_2017-12.subs.csv')
-  data.subreddit = data.subreddit.astype(str)
-  data.comments = data.comments.astype(int)
+def top_subreddits():
+  data = pd.read_csv('top_5000_subreddits.index', header=None)
+  return data.values[:,0].tolist()
 
-  data_filtered = data[data.comments > 1000].sort_values(by=['comments'], ascending=False)
-  return data_filtered.values[:n][:,0].tolist()
-
-def top_n_indexes(arr, n):
-    idx = bn.argpartition(arr, arr.size-n, axis=None)[-n:]
-    width = arr.shape[1]
-    return [divmod(i, width) for i in idx]
-
-top_subs = top_n_subreddits(300)
-
-subs = []
+top_subs = top_subreddits()
 
 tokens = []
 
 with open(FILE_IN) as f:
   for line in f:
     sub, token = line.split(',')
-    if sub not in top_subs: continue
-    subs.append(sub)
     tokens.append(token)
 
 
 
 vecs = tfidf.fit_transform(tokens)
 
+scp.sparse.save_npz('tfidf.npz', vecs)
+
 similarities = cosine_similarity(vecs)
 
+np.save('similarities.npy', similarities)
+
+"""
 sims = []
 
-for i, sub in enumerate(subs):
+
+for i, sub in enumerate(top_subs):
   m = 0
   m_i = 0
-  for j in range(0, len(subs)):
+  for j in range(0, len(top_subs)):
     if j != i and similarities[i][j] > m:
       m = similarities[i][j]
       m_i = j
 
-  sims.append((sub, subs[m_i]))
+  sims.append((sub, top_subs[m_i]))
 
 print(sims)
+"""
