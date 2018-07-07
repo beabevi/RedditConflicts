@@ -6,22 +6,24 @@ import matplotlib.pyplot as plt
 from operator import itemgetter
 import pprint
 
-INPUT = "/home/beatrice/Desktop/WIR/data/all_comments2.txt"
-OUTPUT = "/home/beatrice/Desktop/WIR/data/all_graphs2.txt"
+INPUT = "/home/beatrice/Desktop/WIR/data/all_comments.txt"
+OUTPUT = "/home/beatrice/Desktop/WIR/data/all_graphs3.txt"
 
 comments_by_author = "https://api.pushshift.io/reddit/search/comment/?author="
 
 def construct_graphs(in_file = INPUT, out_file = OUTPUT):
-    with open(in_file, 'r') as in_file, open(out_file, 'a') as out_file:
+    with open(in_file, 'r') as in_file, open(out_file, 'w') as out_file:
         for burst in in_file:
             burst_info = burst.strip("\n").split("\t")
 
             info = burst_info[0].split(', ')
             replies = burst_info[1]
+            if replies == "[]":
+                continue
 
-            print(replies.strip("[").strip("]"))
             edges, attackers, defenders = construct_graph(info[2], info[3], info[4], replies.strip("[").strip("]"))
             out_file.write(burst_info[0] + '\t' + str(edges) + '\t' + str(attackers) + '\t' + str(defenders) + '\n')
+            print("#")
 
 
 
@@ -85,6 +87,7 @@ def is_attacker_defender(user, time_range, attacker_sub, defender_sub):
 
         return is_attacker, is_defender
     except json.decoder.JSONDecodeError:
+        print("exception")
         return "error"
 
 construct_graphs()
