@@ -38,3 +38,11 @@ classify post with bad intents to neutral posts just sharing contents across com
 We got on such task an F1 score of 90%
 
 The code for this par of the project can be found in [this repository](https://github.com/spallas/reddit_sentiments).
+
+## Team
+| [Davide Spallaccini](https://github.com/spallas) | [Beatrice Bevilacqua](https://github.com/beabevi) | [Anxhelo Xhebraj](https://github.com/Angelogeb) |
+| --- | --- | --- |
+| [![spallas](https://avatars0.githubusercontent.com/u/12670376?s=150&v=4)](https://github.com/spallas) | [![beabevi](https://avatars1.githubusercontent.com/u/29659657?s=150&v=4)](https://github.com/beabevi) | [![Angelogeb](https://avatars3.githubusercontent.com/u/11685380?s=150&u=0c36b33f53bd1f3f598cafb0b2deb8a31c2458cb&v=4)](https://github.com/Angelogeb) |
+
+##
+<img src="https://i.imgur.com/Bg4KpDa.png" width="200px"/>
