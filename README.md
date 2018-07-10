@@ -1,5 +1,8 @@
 # RedditConflicts
 
+<img align="right" width="100" height="100" src="https://i.redd.it/hmpoatdmi2911.png">
+
+
 This repository covers three main subprojects regarding Reddit communities, their similarity and interactions.
 This is part of a project for a class of Web Information Retrieval and the main inspiration for these works is
 [this paper](https://arxiv.org/abs/1803.03697) from Leskovec et al. from Stanford University.
